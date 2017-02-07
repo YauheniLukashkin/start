@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+		<title>Registration Reader</title>
+	</head>
+	<body>
+		<div class="container" align="center">
+			<h2> Input data </h2>
+			<form th:action="@{/registration/reader/add}" method="post" th:object="${reader}" >
+				<div th:replace="fragments/registration :: registration"> </div>
+				<div><label> Work adress: <input type="text" name="workAdress" class="form-control"/> </label></div>
+				<div th:replace="fragments/fragments :: inFormButton"> </div>
+			</form>
+		</div>
+	</body>
+</html>

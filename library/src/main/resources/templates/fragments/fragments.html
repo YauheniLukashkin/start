@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+</head>
+	<body>
+		<div th:fragment="errorDate">
+			<p th:text="${session.error}" th:unless="${session == null}"></p>
+		</div>
+		<div th:fragment="inFormButton">
+			<div><input type="submit" value="Sign In" class="btn btn-primary"/></div>
+		</div>
+	</body>
+</html>

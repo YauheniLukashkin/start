@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+	<title>Home Libririan</title>
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+		<script type="text/javascript" th:src="@{/js/view.js}" ></script>
+	</head>
+	<body>
+		<div class="container" align="center">
+			<h3> Hello, <label th:text="${librarian.login}"> </label>!</h3>
+			<br/>
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Sign Out" class="btn btn-primary"/>
+			</form>	<br/>
+			<a th:href="@{/librarian/books/new}" class="btn btn-primary">Add book to the library </a>
+			
+			<br/><br/>
+			<input onclick="visbleLibrarian('inLibrary','inReads','myWork','history')" type="button" class="btn btn-primary" value="Books in the library"/> 
+			<input onclick="visbleLibrarian('inReads','inLibrary','myWork','history')" type="button" class="btn btn-primary" value="Book readers"/>
+			<input onclick="visbleLibrarian('myWork','inLibrary','inReads','history')" type="button" class="btn btn-primary" value="My work"/>
+			<input onclick="visbleLibrarian('history','inLibrary','inReads','myWork')" type="button" class="btn btn-primary" value="History"/>
+			<br/><br/>
+			
+				
+			<p th:text="${session.errorL}" th:unless="${session == null}"></p>	
+			<div id="inReads" style="display:none">
+				<div th:replace="fragments/viewLibrarianTable :: librarianReads"> </div>
+			</div>
+			
+			<div id="inLibrary" style="display:none">
+				<div th:replace="fragments/viewLibrarianTable :: LibraryanBook"> </div>
+			</div>
+			
+			<div id="history" style="display:none">
+				<div th:replace="fragments/viewLibrarianTable :: historyTable"> </div>
+			</div>
+			
+			<div id="myWork" style="display:none">
+				<div th:replace="fragments/viewLibrarianTable :: workTable"> </div>
+			</div>
+		</div>
+	</body>
+</html>

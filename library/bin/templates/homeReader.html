@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+		<title>Home Reader</title>
+		<script type="text/javascript" th:src="@{/js/view.js}" ></script>
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+	</head>
+	<body>
+		<div class="container" align="center">
+			<h3> Hello, <label th:text="${reader.login}"> </label>!</h3>
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Sign Out" class="btn btn-primary"/>
+			</form>				
+			<br/>
+			<input onclick="visbleReader('readNow','readBefore')" type="button" value="I read it now" class="btn btn-primary"/> 
+			<input onclick="visbleReader('readBefore','readNow')" type="button" value="I read it before" class="btn btn-primary"/>
+			
+			<div id="readBefore" style="display:none">
+				<div th:replace="fragments/viewReaderTable :: beforeBooks"> </div>
+			</div>
+			
+			<div id="readNow" style="display:none">
+				<div th:replace="fragments/viewReaderTable :: nowBooks"> </div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+	</head>
+	<body>
+		<div th:fragment="LibraryanBook">
+			<form th:action="@{/librarian/books/work/give}" method="post">
+				<br/>
+				<div><label> Login reader: <input type="text" name="logReader" class="form-control"/> </label></div>
+				<div><input type="submit" value="Give Check" class="btn btn-primary"/></div>
+				<div th:if="${facade.booksLibrary != null}">
+					<h1>Books in the library</h1>
+					<table class="table table-striped">
+					<tr>
+						<th>Name Book</th>
+						<th>Author</th>
+						<th>Year publish</th>
+						<th>Give book</th>
+					</tr>
+					<tr th:each="book : ${facade.booksLibrary}">
+						<td th:text="${book.name}"></td>
+						<td th:text="${book.author}"></td>
+						<td th:text="${book.yearPublish}"></td> 
+						<td > <input type="checkbox" name="flagB" th:value="${book.id}"/></td>
+					</tr>
+					</table>
+				</div>
+			</form>
+		</div>
+		
+		<div th:fragment="librarianReads">
+			<form th:action="@{/librarian/books/work/return}" method="post">
+				<br/>
+				<div><input type="submit" value="Retun Check" class="btn btn-primary"/></div>
+				<div th:if="${facade.readNow != null}">
+					<h1>Book readers</h1>
+					<table class="table table-striped">
+					<tr>
+						<th>Name Book</th>
+						<th>Author</th>
+						<th>Start Date</th>
+						<th>Reader Name</th>
+						<th>Reader Adress</th>
+						<th>Librarian Name</th>
+						<th>Return book</th>
+					</tr>
+					<tr th:each="read : ${facade.readNow}"
+						th:if="${read.dateFinish == null}">
+						<td th:text="${read.book.name}"></td>
+						<td th:text="${read.book.author}"></td>
+						<td th:text="${read.dateStart}"></td>
+						<td th:text="${read.reader.login}"></td>
+						<td th:text="${read.reader.adress}"></td>
+						<td th:text="${read.librarian.login}"></td>
+						<td > <input type="checkbox" name="flagR" th:value="${read.id}"/></td>
+					</tr>
+					</table>
+				</div>
+			</form>
+		</div>
+		
+		<div th:fragment="historyTable">
+			<div th:if="${facade.history != null}">
+				<h1>History</h1>
+				<table class="table table-striped">
+				<tr>
+					<th>Name Book</th>
+					<th>Author</th>
+					<th>Reader Name</th>
+					<th>Reader Adress</th>
+					<th>Start Date</th>
+					<th>Finish Date</th>
+					<th>Librarian Name</th>
+				</tr>
+				<tr th:each="read : ${facade.history}">
+					<td th:text="${read.book.name}"></td>
+					<td th:text="${read.book.author}"></td>
+					<td th:text="${read.reader.login}"></td>
+					<td th:text="${read.reader.adress}"></td>
+					<td th:text="${read.dateStart}"></td>
+					<td th:text="${read.dateFinish}"></td>
+					<td th:text="${read.librarian.login}"></td>
+				</tr>
+				</table>
+			</div>
+		</div>
+		
+		<div th:fragment="workTable">
+			<div th:if="${librarian.readingList != null}">
+				<h1>My work</h1>
+				<table class="table table-striped">
+				<tr>
+				<th>Name Book</th>
+					<th>Author</th>
+					<th>Reader Name</th>
+					<th>Reader Adress</th>
+					<th>Start Date</th>
+					<th>Finish Date</th>
+				</tr>
+				<tr th:each="work : ${librarian.readingList}">
+					<td th:text="${work.book.name}"></td>
+					<td th:text="${work.book.author}"></td>
+					<td th:text="${work.reader.login}"></td>
+					<td th:text="${work.reader.adress}"></td>
+					<td th:text="${work.dateStart}"></td>
+					<td th:text="${work.dateFinish}"></td>
+				</tr>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

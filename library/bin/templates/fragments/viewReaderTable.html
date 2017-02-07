@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+	</head>
+	<body>
+		<div th:fragment="beforeBooks">
+			<div th:if="${reader.readingList != null}">
+				<h1>I read it before</h1>
+				<table class="table table-striped">
+				<tr>
+					<th>Name Book</th>
+					<th>Author</th>
+					<th>Start Date</th>
+					<th>Finish Date</th>
+				</tr>
+				<tr th:each="read : ${reader.readingList}"
+					th:if="${read.dateFinish != null}">
+					<td th:text="${read.book.name}"></td>
+					<td th:text="${read.book.author}"></td>
+					<td th:text="${read.dateStart}"></td>
+					<td th:text="${read.dateFinish}"></td>
+				</tr>
+				</table>
+			</div>
+		</div>
+		
+		<div th:fragment="nowBooks">
+			<div th:if="${reader.readingList != null}">
+				<h1>I read it now</h1>
+				<table class="table table-striped">
+					<tr>
+						<th>Name Book</th>
+						<th>Author</th>
+						<th>Start Date</th>
+					</tr>
+					<tr th:each="read : ${reader.readingList}"
+						th:if="${read.dateFinish == null}">
+						<td th:text="${read.book.name}"></td>
+						<td th:text="${read.book.author}"></td>
+						<td th:text="${read.dateStart}"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
